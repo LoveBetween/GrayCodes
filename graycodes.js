@@ -11,7 +11,7 @@ window.onload = function() {
     var height;
 
     var scale = 20;
-    var n = 4;
+    var n = 6;
     var running = false;
     var bit_colour = "rgb(256,256,256)";
 
