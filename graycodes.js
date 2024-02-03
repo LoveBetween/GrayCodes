@@ -10,8 +10,8 @@ window.onload = function() {
     var width;
     var height;
 
-    var scale = 16;
-    var n = 10;
+    var scale = 20;
+    var n = 4;
     var running = false;
     var bit_colour = "rgb(256,256,256)";
 
@@ -28,7 +28,7 @@ window.onload = function() {
         endTime = new Date();
         var timeDiff = endTime - startTime; //in ms
         // strip the ms
-        console.log("Finished in " + timeDiff + " ms");
+        console.log(timeDiff + " ms");
     }
     // ------------------------------------------------------- // Display
     function displayCode(gc) {
@@ -48,6 +48,9 @@ window.onload = function() {
 
     // ------------------------------------------------------- // Algorithms
 
+
+
+
     function BRGC(n){
         if (n==1){
             return [[0],[1]];
@@ -55,7 +58,8 @@ window.onload = function() {
         let A = BRGC(n-1);
         let len = A.length;
         let B = Array.apply(0, Array(len*2)).map(function (x,i) {
-            return [~~(i/len)].concat(A[i%len]);
+            let a = ~~(i/len);
+            return [a].concat(A[(1-a) * i + a * (len-1 - (i%len))]);
         })
         return B;
     }
