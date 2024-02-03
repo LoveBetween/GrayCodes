@@ -28,7 +28,7 @@ window.onload = function() {
         endTime = new Date();
         var timeDiff = endTime - startTime; //in ms
         // strip the ms
-        console.log(timeDiff + " ms");
+        console.log("Finished in " + timeDiff + " ms");
     }
     // ------------------------------------------------------- // Display
     function displayCode(gc) {
@@ -38,7 +38,6 @@ window.onload = function() {
         for(j=0; j<height;j++){
             for(i=0; i<width;i++){
                 if (gc[j][i] == 1){
-                    console.log(i + " " + j)
                     ctx.rect(i * scale, j * scale, scale, scale);
                 }
             }
