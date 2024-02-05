@@ -1,5 +1,4 @@
 // The function gets called when the window is fully loaded
-
 window.onload = function() {
     // Get the canvas and context
     var canvas = document.getElementById("viewport"); 
@@ -10,10 +9,10 @@ window.onload = function() {
     var width;
     var height;
 
-    var scale = 20;
-    var n = 6;
+    var scale = 4;
+    var n = 10;
     var running = false;
-    var bit_colour = "rgb(256,256,256)";
+    var bit_colour = "lightblue";
 
     
     // ------------------------------------------------------- // Time
@@ -30,6 +29,10 @@ window.onload = function() {
         // strip the ms
         console.log(timeDiff + " ms");
     }
+
+    function mod(n, m) {
+        return ((n % m) + m) % m;
+      }
     // ------------------------------------------------------- // Display
     function displayCode(gc) {
         ctx.fillStyle = "orange";
@@ -60,9 +63,31 @@ window.onload = function() {
         let B = Array.apply(0, Array(len*2)).map(function (x,i) {
             let a = ~~(i/len);
             return [a].concat(A[(1-a) * i + a * (len-1 - (i%len))]);
-        })
+        });
         return B;
     }
+    
+    function BRGCmod(n){
+        let A = Array.apply(0, Array(n)).map(function (x,i){
+            return Math.pow(2, n-i-1);
+        });
+        /*
+        let B = Array.apply(0, Math.pow(2, n)).map(function (x,i) {
+            return Array.apply(0, n).map(function (x,1)
+        });
+        */
+        let B = Array.apply(0, Array(Math.pow(2,n))).map(function(){return [];});
+        for(i=0;i<A[0]*2;i++){
+            for(j=0;j<n;j++){
+                let res = mod((i-A[j]),(4*A[j]));
+                if(res <2*A[j]){
+                    B[i][j]= 1;
+                }
+            }
+        }
+        return B;
+    }
+
     // ------------------------------------------------------- // Main
     function setup(){
         width = n;
@@ -71,7 +96,7 @@ window.onload = function() {
         canvas.height = height * scale;
         //
         start();
-        let graycode = BRGC(n);
+        let graycode = BRGCmod(n);
         end();
         console.log(graycode);
         displayCode(graycode);
