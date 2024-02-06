@@ -88,6 +88,29 @@ window.onload = function() {
         return B;
     }
 
+    function BRGC3(n){
+        let A = Array.apply(0, Array(1)).map(function() {
+            return Array.apply(0, Array(n)).map(function() {
+                return 0;
+            });
+        });
+        for (let i=1;i<2**n;i++){
+            if (i%2==1) {
+                A.push([...A[A.length-1]]);
+                A[A.length-1][n-1]=A[A.length-1][n-1]^1;
+            }else{
+                for (let k=n-1;k>=0;k--){
+                    if (A[A.length-1][k]==1) {
+                        A.push([...A[A.length-1]]);
+                        A[A.length-1][k-1]=A[A.length-1][k-1]^1;
+                        break;
+                    }
+                }
+            }
+        }
+        return A;
+    }
+
     // ------------------------------------------------------- // Main
     function setup(){
         width = n;
