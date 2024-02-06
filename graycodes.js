@@ -7,8 +7,8 @@ var n_input = document.getElementById("ninput");
 // Define the image dimensions
 var scale = 16;
 var N = 5;
-var running = false;
-var bit_colour = "lightblue";
+var bg_colour = "rgb(252,230,206)";
+var bit_colour = "rgb(38,33,33)";
 
 
 // ------------------------------------------------------- // Time
@@ -30,13 +30,13 @@ function mod(n, m) {
   }
 // ------------------------------------------------------- // Display/js
 function displayCode(gc) {
-    ctx.fillStyle = "orange";
+    ctx.fillStyle = bg_colour;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.beginPath();
     for(j=0; j<height;j++){
         for(i=0; i<width;i++){
             if (gc[j][i] == 1){
-                ctx.rect(i * scale, j * scale, scale, scale);
+                ctx.rect(i * scale+1, j * scale+1, scale-1, scale-1);
             }
         }
     }
@@ -126,8 +126,8 @@ function  genCode(algorithm){
     N = n_input.value;
     width = N;
     height = Math.pow(2,N);
-    canvas.width = width * scale;
-    canvas.height = height * scale;
+    canvas.width = width * scale + 1;
+    canvas.height = height * scale  + 1;
     //
     start();
     let graycode = algorithm(N);
