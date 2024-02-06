@@ -3,10 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <title>Gray Codes</title>
-<script type="text/javascript" src="graycodes.js"></script>
+
+<link href="style.css" rel="stylesheet" />
 </head>
 <body>
-<canvas id="viewport" width="400" height="400"></canvas>
-
+        
+    
+    <div class="menu-container">
+        <div class="dropdown">
+            <input type="number" class="input-size" id="ninput" value="5" required minlength="1" maxlength="5" size="6">  n</input>
+        </div>
+        
+        <div class="dropdown">
+            <button onclick="dropDownFunction(this)" class="dropbtn">- Générer Code -</button>
+            <div id="myDropdown" class="dropdown-content">
+                <button class="dropbtnchoice" onclick="genCode(BRGC)">BRGC Naif</a>
+                <button class="dropbtnchoice" onclick="genCode(BRGCmod)">BRGC modulo</a>
+                <button class="dropbtnchoice" onclick="genCode(BRGC3)">BGRC 3</a>
+                </div>
+        </div>
+    </div>
+    
+    <canvas id="viewport" width="400" height="400"></canvas>
+    <script type="text/javascript" src="graycodes.js"></script>
 </body>
 </html>
