@@ -71,15 +71,10 @@ window.onload = function() {
         let A = Array.apply(0, Array(n)).map(function (x,i){
             return Math.pow(2, n-i-1);
         });
-        /*
-        let B = Array.apply(0, Math.pow(2, n)).map(function (x,i) {
-            return Array.apply(0, n).map(function (x,1)
-        });
-        */
         let B = Array.apply(0, Array(Math.pow(2,n))).map(function(){return [];});
         for(i=0;i<A[0]*2;i++){
             for(j=0;j<n;j++){
-                let res = mod((i-A[j]),(4*A[j]));
+                let res = (i+3*A[j])%(4*A[j]);
                 if(res <2*A[j]){
                     B[i][j]= 1;
                 }
