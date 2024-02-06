@@ -69,7 +69,7 @@ function BRGC(n){
     }
     let A = BRGC(n-1);
     let len = A.length;
-    let B = Array.apply(0, Array(len*2)).map(function (x,i) {
+    let B = Array.apply(0, Array(len*2)).map(function (_,i) {
         let a = ~~(i/len);
         return [a].concat(A[(1-a) * i + a * (len-1 - (i%len))]);
     });
@@ -78,13 +78,13 @@ function BRGC(n){
 //Algo basé sur ce calcul : 
 //
 function BRGCmod(n){
-    let A = Array.apply(0, Array(50)).map(function(x,i){
+    let A = Array.apply(0, Array(50)).map(function(_,i){
         return 2**(n-i-1);
     });
-    let B = Array.apply(0, Array(Math.pow(2,n))).map(function(){return [];});
+    let B = Array.apply(0, Array(2**n)).map(function(){return [];});
     for(i=0;i<A[0]*2;i++){
         for(j=0;j<n;j++){
-            let res = mod((i-A[j]),(4*A[j]));
+            let res = (i+3*A[j])%(4*A[j]);
             if(res <2*A[j]){
                 B[i][j]= 1;
             }
@@ -93,18 +93,23 @@ function BRGCmod(n){
     return B;
 }
 
-function BRGC3(n){
-    let A = Array.apply(0, Array(1)).map(function() {
+function BRGC3(n){      
+    //Returns the Gray code on n bits of every number between 0 and (2**n)-1 with parity
+    let A = Array.apply(0, Array(1)).map(function() {  
         return Array.apply(0, Array(n)).map(function() {
             return 0;
         });
     });
-    for (let i=1;i<2**n;i++){
+    //A an array containing an array with n zeros
+    for (let i=1;i<2**n;i++){ 
         if (i%2==1) {
+        //If the lign number is odd we flip the last bit of the lign
             A.push([...A[A.length-1]]);
             A[A.length-1][n-1]=A[A.length-1][n-1]^1;
+            //The XOR of the bit with 1 flips the bit
         }else{
-            for (let k=n-1;k>=0;k--){
+        //If the lign number is even we flip the bit on the left of the 1 furthest to the right
+            for (let k=n-1;k>=0;k--){ 
                 if (A[A.length-1][k]==1) {
                     A.push([...A[A.length-1]]);
                     A[A.length-1][k-1]=A[A.length-1][k-1]^1;
@@ -115,33 +120,6 @@ function BRGC3(n){
     }
     return A;
 }
-    function BRGC3(n){      
-        //Returns the Gray code on n bits of every number between 0 and (2**n)-1 with parity
-        let A = Array.apply(0, Array(1)).map(function() {  
-            return Array.apply(0, Array(n)).map(function() {
-                return 0;
-            });
-        });
-        //A an array containing an array with n zeros
-        for (let i=1;i<2**n;i++){ 
-            if (i%2==1) {
-            //If the lign number is odd we flip the last bit of the lign
-                A.push([...A[A.length-1]]);
-                A[A.length-1][n-1]=A[A.length-1][n-1]^1;
-                //The XOR of the bit with 1 flips the bit
-            }else{
-            //If the lign number is even we flip the bit on the left of the 1 furthest to the right
-                for (let k=n-1;k>=0;k--){ 
-                    if (A[A.length-1][k]==1) {
-                        A.push([...A[A.length-1]]);
-                        A[A.length-1][k-1]=A[A.length-1][k-1]^1;
-                        break;
-                    }
-                }
-            }
-        }
-        return A;
-    }
 
 // ------------------------------------------------------- // Main
 function  genCode(algorithm){
