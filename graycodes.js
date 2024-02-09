@@ -5,7 +5,7 @@ var n_input = document.getElementById("ninput");
 //document.getElementById ("gen").addEventListener ("click", genCode, false);
 
 // Define the image dimensions
-var scale = 16;
+var scale = 8;
 var N = 5;
 var bg_colour = "rgb(252,230,206)";
 var bit_colour = "rgb(38,33,33)";
