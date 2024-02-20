@@ -52,7 +52,8 @@ function displayCode(gc) {
     ctx.fillStyle = bit_colour ; 
     ctx.fill();ctx.closePath();
 }
-
+// Display as a circle
+//TODO - optimize loop, maybe inverse button?
 function displayCircle(gc) {
     canvas.width = 2*c_scale*(N * 2);
     canvas.height = 2*c_scale*(N * 2);
