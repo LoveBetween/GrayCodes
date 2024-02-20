@@ -6,9 +6,13 @@ var n_input = document.getElementById("ninput");
 
 // Define the image dimensions
 var scale = 16;
+var c_scale = 16;
 var N = 5;
 var bg_colour = "rgb(252,230,206)";
 var bit_colour = "rgb(38,33,33)";
+
+var width;
+var height;
 
 //other colors in palette (124,107,101), (247,154,54), (233,233,233)
 
@@ -32,6 +36,9 @@ function mod(n, m) {
   }
 // ------------------------------------------------------- // Display/js
 function displayCode(gc) {
+    canvas.width = width * scale + 1;
+    canvas.height = height * scale  + 1;
+
     ctx.fillStyle = bg_colour;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.beginPath();
@@ -44,6 +51,32 @@ function displayCode(gc) {
     }
     ctx.fillStyle = bit_colour ; 
     ctx.fill();ctx.closePath();
+}
+
+function displayCircle(gc) {
+    canvas.width = 2*c_scale*(N * 2);
+    canvas.height = 2*c_scale*(N * 2);
+    ctx.fillStyle = bg_colour;
+    ctx.beginPath();
+    ctx.lineWidth = N*c_scale;
+    ctx.arc(canvas.width/2, canvas.height/2 , canvas.width/2-(N*c_scale/2), 0, 2 * Math.PI);
+    ctx.stroke();
+    ctx.closePath();
+
+    ctx.strokeStyle = bg_colour;
+    ctx.lineWidth = c_scale-1;
+    for(i=0;i<width;i++){
+        for(j=0; j<height;j++){
+            if (gc[j][i] == 1){
+                ctx.beginPath();
+                ctx.arc(canvas.width/2, canvas.height/2, canvas.width/2-((i+0.5)*c_scale), 2 * Math.PI * j / height, 2 * Math.PI * (j+1) / height);
+                ctx.stroke();
+                ctx.closePath();
+            } 
+        }
+        
+        
+    }
 }
 
 function dropDownFunction(a) {
@@ -126,15 +159,12 @@ function BRGC3(n){
 // ------------------------------------------------------- // Main
 function  genCode(algorithm){
     N = n_input.value;
-    width = N;
-    height = Math.pow(2,N);
-    canvas.width = width * scale + 1;
-    canvas.height = height * scale  + 1;
-    //
+    width  = N;
+    height = 2**N;
     start();
     let graycode = algorithm(N);
     end();
     console.log(graycode);
-    displayCode(graycode);
+    displayCircle(graycode);
     console.log("done");
 }
