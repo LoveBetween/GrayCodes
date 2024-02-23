@@ -66,9 +66,9 @@ function displayCircle(gc) {
 
     ctx.strokeStyle = bg_colour;
     ctx.lineWidth = c_scale-1;
-    for(i=width-1;i>-1;i--){
+    for(i=0;i<width;i++){
         for(j=0; j<height;j++){
-            if (gc[j][i] == 1){
+            if (gc[j][width-i-1] == 1){
                 ctx.beginPath();
                 ctx.arc(canvas.width/2, canvas.height/2, canvas.width/2-((i+0.5)*c_scale), 2 * Math.PI * j / height, 2 * Math.PI * (j+1) / height);
                 ctx.stroke();
