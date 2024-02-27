@@ -59,7 +59,7 @@ function displayCircle(gc) {
     canvas.height = 2*c_scale*(N * 2);
     ctx.fillStyle = bg_colour;
     ctx.beginPath();
-    ctx.lineWidth = N*c_scale-2;
+    ctx.lineWidth = N*c_scale;
     ctx.arc(canvas.width/2, canvas.height/2 , canvas.width/2-(N*c_scale/2), 0, 2 * Math.PI);
     ctx.stroke();
     ctx.closePath();
